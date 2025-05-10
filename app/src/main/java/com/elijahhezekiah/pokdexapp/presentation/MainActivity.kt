@@ -49,8 +49,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable<PokemonListRoute> {
                         MainScreen(
-                            onPokemonClick = { pokemon ->
-                                navController.navigate(PokemonRoute(pokemon))
+                            onPokemonClick = {name,url ->
+                                navController.navigate(PokemonRoute(name,url))
                             }
                         )
                     }
@@ -59,7 +59,8 @@ class MainActivity : ComponentActivity() {
                         val args = it.toRoute<PokemonRoute>()
 
                         DetailScreen(
-                            name = args.name
+                            name = args.name,
+                            url = args.url
                         )
                     }
 

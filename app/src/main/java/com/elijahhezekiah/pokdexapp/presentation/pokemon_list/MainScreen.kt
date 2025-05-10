@@ -32,8 +32,8 @@ import com.elijahhezekiah.pokdexapp.presentation.pokemon_list.components.Pokemon
 
 @Composable
 fun MainScreen (
-        onPokemonClick: (String) -> Unit,
-        viewModel: MainViewModel = hiltViewModel()
+    onPokemonClick: (String, String) -> Unit,
+    viewModel: MainViewModel = hiltViewModel()
 
 ){
      val state = viewModel.state.value
@@ -111,7 +111,7 @@ fun MainScreen (
                 PokemonListItem(
                 pokemon = pokemon,
                 onItemClick = {
-                  onPokemonClick(pokemon.name)
+                  onPokemonClick(pokemon.name,pokemon.url)
                     }
                 )
 

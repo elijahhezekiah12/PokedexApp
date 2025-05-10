@@ -1,7 +1,6 @@
 package com.elijahhezekiah.pokdexapp.presentation.pokemon_details
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,12 +32,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.elijahhezekiah.pokdexapp.domain.model.Pokemon
 import com.elijahhezekiah.pokdexapp.presentation.components.BaseStatsItem
 
 @Composable
 fun  DetailScreen(
     viewModel: DetailViewModel = hiltViewModel(),
-    name: String
+    name: String,
+    url: String
 ) {
 
     LaunchedEffect(key1 = name) {
@@ -161,7 +161,9 @@ fun  DetailScreen(
 
                          Spacer(modifier = Modifier.weight(1f))
                          IconButton(onClick = {
-                             isFavoriteActive.value = !isFavoriteActive.value
+                            isFavoriteActive.value = !isFavoriteActive.value
+                            if(isFavoriteActive.value) viewModel.favoritePokemon(Pokemon(name,url))
+                            else viewModel.unfavoritePokemon(Pokemon(name,url))
 
                          }) {
                              Icon(

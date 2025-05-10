@@ -5,8 +5,8 @@ plugins {
     id("kotlin-kapt")
     id ("dagger.hilt.android.plugin")
     alias(libs.plugins.kotlinx.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
+    //alias(libs.plugins.ksp)
+   // alias(libs.plugins.room)
 }
 
 android {
@@ -42,9 +42,9 @@ android {
     buildFeatures {
         compose = true
     }
-    room {
+   /* room {
         schemaDirectory("$projectDir/schemas")
-    }
+    }*/
 }
 
 dependencies {
@@ -90,7 +90,10 @@ dependencies {
     implementation(libs.coil.compose)
 
 
-
+    val roomVersion = "2.5.0"
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx) // Kotlin Extensions
 
 
 }
