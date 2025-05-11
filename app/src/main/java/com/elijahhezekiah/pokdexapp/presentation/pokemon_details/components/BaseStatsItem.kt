@@ -1,4 +1,4 @@
-package com.elijahhezekiah.pokdexapp.presentation.components
+package com.elijahhezekiah.pokdexapp.presentation.pokemon_details.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

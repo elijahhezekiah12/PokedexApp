@@ -29,14 +29,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.elijahhezekiah.pokdexapp.domain.model.Pokemon
-import com.elijahhezekiah.pokdexapp.presentation.components.BaseStatsItem
+import com.elijahhezekiah.pokdexapp.presentation.pokemon_details.components.BaseStatsItem
 
 @Composable
-fun  DetailScreen(
+fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel(),
     name: String,
     url: String
@@ -53,109 +54,111 @@ fun  DetailScreen(
 
         state.pokemon?.let { pokemon ->
 
-          LazyColumn(
-                modifier = Modifier.fillMaxSize()
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
                     .padding(bottom = innerPadding.calculateBottomPadding()),
                 horizontalAlignment = Alignment.Start
             ) {
 
-          item {
+                item {
 
-                  AsyncImage(
-                      model = pokemon.sprites.other?.home?.front_shiny,
-                      contentDescription = null,
-                      modifier = Modifier.fillMaxWidth()
-                          .height(450.dp)
-                          .clip(
-                              RoundedCornerShape(
-                                  bottomEnd = 20.dp
-                              )
-                          )
-                          .padding(16.dp),
+                    AsyncImage(
+                        model = pokemon.sprites.other?.home?.front_shiny,
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxWidth()
+                            .height(450.dp)
+                            .clip(
+                                RoundedCornerShape(
+                                    bottomEnd = 20.dp
+                                )
+                            )
+                            .padding(16.dp),
+                        contentScale = ContentScale.Crop
+                    )
 
-                      contentScale = ContentScale.Crop
-                  )
-
-            }
-
+                }
 
 
-         item {
-             Column(
-                 modifier = Modifier.padding(10.dp).background(
-                     Color(0xFFC4C7EB),
-                     shape = RoundedCornerShape(20.dp)
-                 )
-                     .padding(horizontal = 16.dp, vertical = 16.dp)
-                     .fillMaxWidth(),
-                 horizontalAlignment = Alignment.CenterHorizontally
-             ) {
+
+                item {
+                    Column(
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .background(
+                                Color(0xFFC4C7EB),
+                                shape = RoundedCornerShape(20.dp)
+                            )
+                            .padding(horizontal = 16.dp, vertical = 16.dp)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
 
 
-                     Row {
+                        Row {
 
-                         Text(
-                             text = "Name",
-                             style = MaterialTheme.typography.titleLarge,
-                             fontWeight = FontWeight.Bold,
-                             textAlign = TextAlign.Center
-                         )
+                            Text(
+                                text = "Name",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
 
-                         Text(
-                             text = " - ",
-                             modifier = Modifier.padding(horizontal = 4.dp)
-                         )
+                            Text(
+                                text = " - ",
+                                modifier = Modifier.padding(horizontal = 4.dp)
+                            )
 
-                         Text(
-                             text = pokemon.name,
-                             fontWeight = FontWeight.Bold,
-                             textAlign = TextAlign.Center
-                         )
+                            Text(
+                                text = pokemon.name,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
 
-                     }
+                        }
 
 
-                     Row {
+                        Row {
 
-                         Text(
-                             text = "Height",
-                             style = MaterialTheme.typography.titleLarge,
-                             fontWeight = FontWeight.Bold,
-                             textAlign = TextAlign.Center
-                         )
+                            Text(
+                                text = "Height",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
 
-                         Text(
-                             text = " - ",
-                             modifier = Modifier.padding(horizontal = 4.dp)
-                         )
+                            Text(
+                                text = " - ",
+                                modifier = Modifier.padding(horizontal = 4.dp)
+                            )
 
-                         Text(
-                             text = pokemon.height.toString(),
-                             fontWeight = FontWeight.Bold,
-                             textAlign = TextAlign.Center
-                         )
+                            Text(
+                                text = pokemon.height.toString(),
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
 
-                     }
+                        }
 
-                     Row {
-                         Spacer(modifier = Modifier.weight(2f))
-                         Text(
-                             text = "Weight",
-                             style = MaterialTheme.typography.titleLarge,
-                             fontWeight = FontWeight.Bold,
-                             textAlign = TextAlign.Center
-                         )
+                        Row {
+                            Spacer(modifier = Modifier.weight(2f))
+                            Text(
+                                text = "Weight",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
 
-                         Text(
-                             text = " - ",
-                             modifier = Modifier.padding(horizontal = 4.dp)
-                         )
+                            Text(
+                                text = " - ",
+                                modifier = Modifier.padding(horizontal = 4.dp)
+                            )
 
-                         Text(
-                             text = pokemon.weight.toString(),
-                             fontWeight = FontWeight.Bold,
-                             textAlign = TextAlign.Center
-                         )
+                            Text(
+                                text = pokemon.weight.toString(),
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
 
 
 
@@ -165,48 +168,50 @@ fun  DetailScreen(
                             if(isFavoriteActive.value) viewModel.favoritePokemon(Pokemon(name,url))
                             else viewModel.unfavoritePokemon(Pokemon(name,url))
 
-                         }) {
-                             Icon(
-                                 imageVector = Icons.Default.Favorite,
-                                 contentDescription = "favorite",
-                                 tint = if (isFavoriteActive.value)  Color.Red else Color.White
-                             )
-                         }
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.Favorite,
+                                    contentDescription = "favorite",
+                                    tint = if (isFavoriteActive.value) Color.Red else Color.White
+                                )
+                            }
 
-                     }
+                        }
 
-             }
+                    }
 
-         }
+                }
 
-       item{
-           Text(
-               text = "Base stats",
-               style = MaterialTheme.typography.titleMedium
-           )
-           Spacer(modifier = Modifier.height(15.dp))
-          }
-      items(pokemon.stats.size) { stats ->
-                  BaseStatsItem(
-                      stats = pokemon.stats[stats],
-                      modifier = Modifier
-                          .fillMaxWidth()
-                          .padding(25.dp)
-                  )
-                  HorizontalDivider()
+                item {
+                    Text(
+                        text = "Base stats",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                }
+                items(pokemon.stats.size) { stats ->
+                    BaseStatsItem(
+                        stats = pokemon.stats[stats],
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(25.dp)
+                    )
+                    HorizontalDivider()
+                }
+
+
             }
 
-
-
-    }
-
-
-
-
-
-
         }
-
     }
 
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DetailScreenPreview() {
+    DetailScreen(
+        name = "Pikachu",
+        url = "https://pokeapi.co/api/v2/pokemon/pikachu/"
+    )
 }

@@ -21,10 +21,10 @@ class GetPokemonListUseCase @Inject constructor(
             val pokemonList = repository.getPokemonList().toPokemon()
             emit(Resource.Success(pokemonList))
 
-            Log.d("This are the list of pokemon", "Pokemon List: $pokemonList")
+           // Log.d("This are the list of pokemon", "Pokemon List: $pokemonList")
 
         } catch (e: HttpException) {
-            emit(Resource.Error<List<Pokemon>>(e.localizedMessage ?: "An unexpected error occured"))
+            emit(Resource.Error<List<Pokemon>>(e.localizedMessage ?: "HTTP 400 Response.error"))
         } catch (e: IOException) {
             emit(Resource.Error<List<Pokemon>>("Couldn't reach server. Check your internet connection."))
         }

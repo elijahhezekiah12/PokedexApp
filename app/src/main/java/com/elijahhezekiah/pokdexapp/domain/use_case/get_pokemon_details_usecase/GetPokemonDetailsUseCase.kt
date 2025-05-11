@@ -18,7 +18,7 @@ class GetPokemonDetailsUseCase @Inject constructor(
             val pokemonDetails = repository.getPokemonInfo(pokemonName).toPokemonDetails()
             emit(Resource.Success(pokemonDetails))
         } catch(e: HttpException) {
-            emit(Resource.Error<PokemonDetails>(e.localizedMessage ?: "An unexpected error occured"))
+            emit(Resource.Error<PokemonDetails>(e.localizedMessage ?: "HTTP 400 Response.error"))
         } catch(_: IOException) {
             emit(Resource.Error<PokemonDetails>("Couldn't reach server. Check your internet connection."))
         }

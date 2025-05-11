@@ -12,11 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,10 +29,9 @@ import com.elijahhezekiah.pokdexapp.presentation.pokemon_list.components.Pokemon
 @Composable
 fun MainScreen (
     onPokemonClick: (String, String) -> Unit,
-    viewModel: MainViewModel = hiltViewModel()
-
+    viewModel: MainViewModel = hiltViewModel(),
 ){
-     val state = viewModel.state.value
+    val state = viewModel.state.value
 
      if (state.isLoading){
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -61,65 +56,49 @@ fun MainScreen (
                 }
      }
 
-    else {
+    else if (state.pokemonList.isNotEmpty()){
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(
                 contentPadding = PaddingValues(
-                    top =  10.dp,
+                    top = 10.dp,
                     start = 20.dp,
                     end = 20.dp,
                     bottom = 10.dp,
                 ),
-                horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
 
-
-            item {
-                Row(
-                    modifier = Modifier.background(
-                        Color(0xFFC4C7EB),
-                        shape = RoundedCornerShape(20.dp)
-                    )
-                        .align(alignment = Alignment.CenterEnd)
-                        .padding(horizontal = 16.dp, vertical = 16.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                 Text(
-                        text = "Pokemon List",
-                        style = MaterialTheme.typography.displaySmall,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    Spacer(modifier = Modifier.weight(10f))
-                    IconButton(onClick = {
-
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = "favorite",
-                            tint = MaterialTheme.colorScheme.primary,
+              item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                Color(0xFFC4C7EB),
+                                shape = RoundedCornerShape(20.dp)
+                            )
+                            .padding(horizontal = 16.dp, vertical = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Pokemon List",
+                            style = MaterialTheme.typography.displaySmall,
+                            fontWeight = FontWeight.Bold,
                         )
-                    }
+                        Spacer(modifier = Modifier.weight(1f))
 
+                    }
+                }
+
+           items(state.pokemonList) { pokemon ->
+                    PokemonListItem(
+                        pokemon = pokemon,
+                        onItemClick = {
+                            onPokemonClick(pokemon.name, pokemon.url)
+                        }
+                    )
                 }
             }
-
-            items(state.pokemonList) { pokemon ->
-                PokemonListItem(
-                pokemon = pokemon,
-                onItemClick = {
-                  onPokemonClick(pokemon.name,pokemon.url)
-                    }
-                )
-
-             }
-
-            }
-
-         }
-       }
-
+        }
+    }
 }

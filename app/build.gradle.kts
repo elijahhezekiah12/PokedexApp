@@ -5,8 +5,6 @@ plugins {
     id("kotlin-kapt")
     id ("dagger.hilt.android.plugin")
     alias(libs.plugins.kotlinx.serialization)
-    //alias(libs.plugins.ksp)
-   // alias(libs.plugins.room)
 }
 
 android {
@@ -42,9 +40,7 @@ android {
     buildFeatures {
         compose = true
     }
-   /* room {
-        schemaDirectory("$projectDir/schemas")
-    }*/
+
 }
 
 dependencies {
@@ -94,6 +90,16 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx) // Kotlin Extensions
+
+    // Local unit tests
+    testImplementation (libs.androidx.core)
+    testImplementation(libs.junit)
+    testImplementation (libs.androidx.core.testing)
+    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation (libs.truth)
+    testImplementation (libs.mockwebserver)
+    testImplementation (libs.mockk)
+    debugImplementation (libs.ui.test.manifest)
 
 
 }
