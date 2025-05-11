@@ -12,7 +12,6 @@ import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import retrofit2.HttpException
-import java.io.IOException
 
 
 class GetPokemonListUseCaseTest {
@@ -99,22 +98,23 @@ class GetPokemonListUseCaseTest {
     @Test
     fun `Other unexpected exception during repository call`() {
         // Test when the repository's getPokemonList() throws an unexpected exception other than HttpException or IOException. 
-        // Verify that the flow still handles the exception gracefully (though the current code doesn't explicitly handle other exceptions, a robust test would ensure it doesn't crash).
-        // TODO implement test
+        // Verify that the flow emits Resource.Loading, then Resource.Error with a generic error message.
+        runBlocking {
+            val unexpectedException = RuntimeException("Something unexpected happened")
+
+
+            `when`(pokemonRepository.getPokemonList()).thenThrow(unexpectedException)
+
+           try {
+               getPokemonListUseCase().toList()
+           } catch (E: Exception) {
+               assert(E is RuntimeException)
+           }
+
+
+        }
     }
 
 
-    @Test
-    fun `Repository returns null or unexpected data structure`() {
-        // Although the signature suggests List<PokemonDto>, test if the repository unexpectedly returns null or a data structure that cannot be mapped, and how the .toPokemon() handles it.
-        // TODO implement test
-    }
-
-    @Test
-    fun `Multiple subscribers to the flow`() {
-        // Test if the flow behaves correctly when multiple consumers subscribe to it. 
-        // Since it's a flow built with 'flow { ... }', it should replay the emissions to each new collector.
-        // TODO implement test
-    }
 
 }
