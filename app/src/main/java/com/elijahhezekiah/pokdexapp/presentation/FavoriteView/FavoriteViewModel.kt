@@ -18,11 +18,9 @@ class FavoriteViewModel @Inject constructor(
     val state : State<FavoritePokemonListState> = _state
 
 
-   init {
-        getFavoritePokemonList()
-    }
 
-    private fun getFavoritePokemonList() {
+
+    fun getFavoritePokemonList() {
 
         viewModelScope.launch {
 
