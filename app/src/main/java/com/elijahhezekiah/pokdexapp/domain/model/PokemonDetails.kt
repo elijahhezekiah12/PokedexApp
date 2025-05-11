@@ -5,7 +5,7 @@ import com.elijahhezekiah.pokdexapp.data.model.dto.Stat
 
 data class PokemonDetails(
     val name: String,
-    val sprites: Sprites,
+    val sprites: Sprites?,
     val height: Int,
     val weight: Int,
     val stats: List<Stat>

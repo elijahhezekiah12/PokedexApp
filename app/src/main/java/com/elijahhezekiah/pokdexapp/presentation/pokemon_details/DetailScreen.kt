@@ -64,7 +64,7 @@ fun DetailScreen(
                 item {
 
                     AsyncImage(
-                        model = pokemon.sprites.other?.home?.front_shiny,
+                        model = pokemon.sprites?.other?.home?.front_shiny,
                         contentDescription = null,
                         modifier = Modifier.fillMaxWidth()
                             .height(450.dp)

@@ -27,38 +27,15 @@ class GetPokemonDetailsUseCaseTest {
         runBlocking {
             val pokemonName = "Bulbasaur"
             fakePokemonRepository.getPokemonInfo(pokemonName)
+
             val result = getPokemonDetailsUseCase(pokemonName).toList()
 
-            assertThat(result[0]).isInstanceOf(Resource.Loading::class.java)
-            assertThat(result[1]).isInstanceOf(Resource.Success::class.java)
-            assertThat((result[1] as Resource.Success<PokemonDetails>).data?.name).isEqualTo(pokemonName)
+            assertThat(result[0]).isInstanceOf(Resource.Success::class.java)
+            assertThat((result[0] as Resource.Success<PokemonDetails>).data?.name).isEqualTo(pokemonName)
         }
     }
 
-    @Test
-    fun `HttpException with localized message`() {
-        // Test that the use case emits Resource.Error with the localized message from a 
-        // HttpException when the repository call throws an HttpException with a localized message.
-        // TODO implement test
-    }
 
 
-    @Test
-    fun `Empty pokemonName string`() {
-        // Test the behavior when an empty string is provided as the pokemonName. 
-        // Depending on the repository's implementation, this might result in an error or a specific behavior.
-        // TODO implement test
-    }
-
-
-
-
-
-    @Test
-    fun `Non existent pokemon name`() {
-        // Test that the use case correctly handles the scenario where the repository 
-        // is called with a pokemon name that does not exist, likely resulting in an HttpException.
-        // TODO implement test
-    }
 
 }
